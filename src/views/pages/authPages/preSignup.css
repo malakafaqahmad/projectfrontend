@@ -1,0 +1,34 @@
+.pre-signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at center, #0f1323, #05070d);
+}
+
+.pre-signup-card {
+  background-color: #0d111c;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 20px #00ffff44;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+}
+
+.pre-signup-title {
+  color: var(--neon-blue);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.pre-signup-subtitle {
+  color: #aaa;
+  margin-bottom: 2rem;
+}
+
+.role-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
