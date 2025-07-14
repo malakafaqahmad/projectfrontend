@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FutureInput, FutureButton } from "../../components/ui/futuristic/futuristicStyles.jsx"
+
 import "./signup.css"; // Optional styling
 
 
