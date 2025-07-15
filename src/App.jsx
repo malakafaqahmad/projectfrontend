@@ -4,7 +4,7 @@ import Signup from './views/pages/authPages/Signup.jsx';
 import PreSignup from './views/pages/authPages/PreSignup.jsx';
 import WelcomeScreen from './views/pages/studentPages/resume/WelcomeScreen.jsx';
 import TemplateSelection from './views/pages/studentPages/resume/TemplateSelection.jsx';
-import ResumeBuilder from './views/pages/studentPages/resume/ResumeBuilder.jsx';
+import InlineResumeEditor from './views/pages/studentPages/resume/InlineResumeEditor.jsx';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
     
     <Route path="/wel" element={<WelcomeScreen />} />
     <Route path="/templates" element={<TemplateSelection />} />
-    <Route path="/builder" element={<ResumeBuilder />} />
+    <Route path="/builder" element={<InlineResumeEditor />} />
     
     {/* <Route path="/upload-resume" element={<UploadResume />} /> */}
     {/* <Route path="/connect-accounts" element={<ConnectAccounts />} />
