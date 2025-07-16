@@ -1,13 +1,18 @@
-
 import React, { useState } from 'react';
 
 const SkillsSection = ({ skills, updateSkill, addSkill, deleteSkill }) => {
-  const [newSkill, setNewSkill] = useState("");
+  const [newSkill, setNewSkill] = useState('');
 
   const handleAddSkill = () => {
     if (newSkill.trim()) {
       addSkill(newSkill.trim());
-      setNewSkill("");
+      setNewSkill('');
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleAddSkill();
     }
   };
 
@@ -27,23 +32,18 @@ const SkillsSection = ({ skills, updateSkill, addSkill, deleteSkill }) => {
             >
               {skill}
             </span>
-            <button
-              className="skill-delete-btn"
-              onClick={() => deleteSkill(index)}
-            >
-              ×
-            </button>
+            <button className="skill-delete-btn" onClick={() => deleteSkill(index)}>×</button>
           </div>
         ))}
       </div>
-      <div>
+      <div style={{ marginTop: '10px' }}>
         <input
+          className="skill-input"
           type="text"
-          placeholder="Add a skill..."
+          placeholder="Add a new skill"
           value={newSkill}
           onChange={(e) => setNewSkill(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && handleAddSkill()}
-          className="skill-input"
+          onKeyPress={handleKeyPress}
         />
         <button onClick={handleAddSkill}>Add Skill</button>
       </div>

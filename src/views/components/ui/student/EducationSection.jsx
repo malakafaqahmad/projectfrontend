@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const EducationSection = ({ education, updateEducation, addEducation, deleteEducation }) => {
@@ -6,9 +5,7 @@ const EducationSection = ({ education, updateEducation, addEducation, deleteEduc
     <div>
       <div className="section-header">
         <h3>🎓 Education</h3>
-        <button className="add-btn" onClick={addEducation}>
-          Add
-        </button>
+        <button className="add-btn" onClick={addEducation}>+</button>
       </div>
       {education.map((edu, index) => (
         <div key={index} className="edu-block">
@@ -16,40 +13,28 @@ const EducationSection = ({ education, updateEducation, addEducation, deleteEduc
             <p
               contentEditable
               suppressContentEditableWarning
-              onBlur={(e) =>
-                updateEducation(index, "degree", e.target.innerText)
-              }
+              onBlur={(e) => updateEducation(index, "degree", e.target.innerText)}
             >
               {edu.degree}
             </p>
             <p
               contentEditable
               suppressContentEditableWarning
-              onBlur={(e) =>
-                updateEducation(index, "institution", e.target.innerText)
-              }
+              onBlur={(e) => updateEducation(index, "institution", e.target.innerText)}
             >
               {edu.institution}
             </p>
           </div>
           <div className="edu-right-container">
-            <div className="edu-right">
-              <p
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) =>
-                  updateEducation(index, "duration", e.target.innerText)
-                }
-              >
-                {edu.duration}
-              </p>
-            </div>
-            <button
-              className="delete-btn"
-              onClick={() => deleteEducation(index)}
+            <span
+              className="edu-right"
+              contentEditable
+              suppressContentEditableWarning
+              onBlur={(e) => updateEducation(index, "duration", e.target.innerText)}
             >
-              ×
-            </button>
+              {edu.duration}
+            </span>
+            <button className="delete-btn" onClick={() => deleteEducation(index)}>×</button>
           </div>
         </div>
       ))}

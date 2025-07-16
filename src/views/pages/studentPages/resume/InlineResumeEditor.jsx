@@ -211,11 +211,13 @@ function InlineResumeEditor() {
         insights={aiInsights}
         onApplySuggestion={handleApplySuggestion}
       />
-      <button className="export-btn" onClick={exportToPDF}>
-        📄 Export as PDF
-      </button>
+      
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <button className="export-btn" onClick={exportToPDF}>
+          📄 Export as PDF
+        </button>
 
-      <div className="resume-container" ref={resumeRef}>
+        <div className="resume-container" ref={resumeRef}>
         <ResumeHeader resume={resume} updateField={updateField} />
 
         <EducationSection 
@@ -245,6 +247,7 @@ function InlineResumeEditor() {
           addSkill={addSkill}
           deleteSkill={deleteSkill}
         />
+        </div>
       </div>
     </div>
   );
