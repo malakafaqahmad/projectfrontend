@@ -69,6 +69,12 @@ function InlineResumeEditor() {
     setResume({ ...resume, [section]: [...resume[section], newItem] });
   };
 
+  const deleteSectionItem = (section, index) => {
+    const updated = [...resume[section]];
+    updated.splice(index, 1);
+    setResume({ ...resume, [section]: updated });
+  };
+
   const updateField = (key, value) => {
     setResume({ ...resume, [key]: value });
   };
@@ -87,6 +93,12 @@ function InlineResumeEditor() {
         e.target.value = "";
       }
     }
+  };
+
+  const deleteSkill = (index) => {
+    const updated = [...resume.skills];
+    updated.splice(index, 1);
+    setResume({ ...resume, skills: updated });
   };
 
   return (
@@ -189,6 +201,12 @@ function InlineResumeEditor() {
             >
               {edu.duration}
             </div>
+            <button 
+              className="delete-btn"
+              onClick={() => deleteSectionItem("education", index)}
+            >
+              🗑️
+            </button>
           </div>
         ))}
 
@@ -234,6 +252,12 @@ function InlineResumeEditor() {
               >
                 {exp.years}
               </span>
+              <button 
+                className="delete-btn"
+                onClick={() => deleteSectionItem("experience", index)}
+              >
+                🗑️
+              </button>
             </div>
             <p
               className="exp-desc"
@@ -264,14 +288,22 @@ function InlineResumeEditor() {
         </div>
         {resume.projects.map((proj, index) => (
           <div key={index} className="project-block">
-            <p
-              className="project-title"
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updateSectionItem("projects", index, "title", e.target.innerText)}
-            >
-              {proj.title}
-            </p>
+            <div className="project-header">
+              <p
+                className="project-title"
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={(e) => updateSectionItem("projects", index, "title", e.target.innerText)}
+              >
+                {proj.title}
+              </p>
+              <button 
+                className="delete-btn"
+                onClick={() => deleteSectionItem("projects", index)}
+              >
+                🗑️
+              </button>
+            </div>
             <p
               className="project-desc"
               contentEditable
@@ -288,15 +320,22 @@ function InlineResumeEditor() {
         </div>
         <div className="skills-wrapper">
           {resume.skills.map((skill, index) => (
-            <span
-              key={index}
-              contentEditable
-              suppressContentEditableWarning
-              className="skill-tag"
-              onBlur={(e) => updateSkill(index, e.target.innerText)}
-            >
-              {skill}
-            </span>
+            <div key={index} className="skill-item">
+              <span
+                contentEditable
+                suppressContentEditableWarning
+                className="skill-tag"
+                onBlur={(e) => updateSkill(index, e.target.innerText)}
+              >
+                {skill}
+              </span>
+              <button 
+                className="skill-delete-btn"
+                onClick={() => deleteSkill(index)}
+              >
+                ×
+              </button>
+            </div>
           ))}
         </div>
         <input
