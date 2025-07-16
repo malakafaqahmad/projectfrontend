@@ -89,18 +89,11 @@ span[contenteditable],
   color: #222;
 }
 
-.edu-right-container {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  min-width: 140px;
-}
-
 .edu-right {
   font-size: 0.95rem;
   color: #555;
   text-align: right;
-  flex: 1;
+  min-width: 140px;
 }
 
 /* ========== Projects ========== */
@@ -242,32 +235,45 @@ button:hover {
 }
 
 .delete-btn-small {
-  background: none;
-  color: #666;
+  background-color: #f44336;
+  color: white;
   border: none;
-  font-size: 14px;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
   cursor: pointer;
   margin-left: 8px;
-  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s;
 }
 
 .delete-btn-small:hover {
-  color: #f44336;
+  background-color: #d32f2f;
+  opacity: 1;
 }
 
 .skill-delete-btn {
-  background: none;
-  color: #666;
+  background-color: #f44336;
+  color: white;
   border: none;
-  font-size: 14px;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
   cursor: pointer;
-  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
 }
 
 .skill-delete-btn:hover {
-  color: #f44336;
+  background-color: #d32f2f;
 }
 .exp-row {
   margin-bottom: 20px;
