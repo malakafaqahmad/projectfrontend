@@ -202,10 +202,10 @@ function InlineResumeEditor() {
               {edu.duration}
             </div>
             <button 
-              className="delete-btn"
+              className="delete-btn-small"
               onClick={() => deleteSectionItem("education", index)}
             >
-              🗑️
+              ×
             </button>
           </div>
         ))}
@@ -253,10 +253,10 @@ function InlineResumeEditor() {
                 {exp.years}
               </span>
               <button 
-                className="delete-btn"
+                className="delete-btn-small"
                 onClick={() => deleteSectionItem("experience", index)}
               >
-                🗑️
+                ×
               </button>
             </div>
             <p
@@ -298,10 +298,10 @@ function InlineResumeEditor() {
                 {proj.title}
               </p>
               <button 
-                className="delete-btn"
+                className="delete-btn-small"
                 onClick={() => deleteSectionItem("projects", index)}
               >
-                🗑️
+                ×
               </button>
             </div>
             <p
