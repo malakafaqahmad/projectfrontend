@@ -1,3 +1,5 @@
+
+/* ========== Focus Styles ========== */
 h1[contenteditable]:focus,
 h2[contenteditable]:focus,
 p[contenteditable]:focus,
@@ -7,6 +9,14 @@ span[contenteditable]:focus,
   border-radius: 4px;
 }
 
+/* ========== Remove Outlines for Editable Elements ========== */
+h1[contenteditable],
+h2[contenteditable],
+p[contenteditable],
+span[contenteditable],
+.skill-tag[contenteditable] {
+  outline: none;
+}
 
 /* ========== Container Layout ========== */
 .resume-editor {
@@ -44,19 +54,6 @@ span[contenteditable]:focus,
   margin: 5px 0 15px;
   color: #666;
 }
-.edu-right-container {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  min-width: 140px;
-}
-
-.edu-right {
-  font-size: 0.95rem;
-  color: #555;
-  text-align: right;
-  flex: 1;
-}
 
 .contact-row {
   display: flex;
@@ -69,29 +66,6 @@ span[contenteditable]:focus,
 
 .contact-row p {
   margin: 0;
-}
-/* ========== Remove Outlines for Editable Elements ========== */
-h1[contenteditable],
-h2[contenteditable],
-p[contenteditable],
-span[contenteditable],.exp-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: #333;
-}
-
-.exp-info {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.skill-tag[contenteditable] {
-  outline: none;
 }
 
 /* ========== Education ========== */
@@ -131,6 +105,41 @@ span[contenteditable],.exp-header {
   flex: 1;
 }
 
+/* ========== Experience ========== */
+.exp-row {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+.exp-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.divider {
+  color: #888;
+}
+
+.exp-desc {
+  margin-top: 5px;
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.5;
+  outline: none;
+  padding-left: 4px;
+}
+
 /* ========== Projects ========== */
 .project-block {
   margin-bottom: 20px;
@@ -158,7 +167,6 @@ span[contenteditable],.exp-header {
   line-height: 1.5;
   outline: none;
 }
-
 
 /* ========== Skills ========== */
 .skills-wrapper {
@@ -296,27 +304,4 @@ button:hover {
 
 .skill-delete-btn:hover {
   color: #f44336;
-}
-.exp-row {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  /* 🚫 Removed border-bottom */
-}
-
-.exp-header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: #333;
-}
-
-.exp-desc {
-  margin-top: 5px;
-  font-size: 0.95rem;
-  color: #444;
-  line-height: 1.5;
-  outline: none;
-  padding-left: 4px;
 }
