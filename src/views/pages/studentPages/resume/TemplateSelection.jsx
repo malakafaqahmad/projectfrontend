@@ -5,7 +5,7 @@ function TemplateSelection() {
   const navigate = useNavigate();
 
   const handleSelect = (templateId) => {
-    navigate("/experience", { state: { template: templateId } });
+    navigate("/builder", { state: { template: templateId } });
   };
 
   return (

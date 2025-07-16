@@ -19,6 +19,8 @@ p[contenteditable],
 span[contenteditable],
 .skill-tag[contenteditable] {
   outline: none;
+  user-select: text;
+  cursor: text;
 }
 
 /* ========== Container Layout ========== */
@@ -29,6 +31,7 @@ span[contenteditable],
   display: flex;
   justify-content: center;
   font-family: 'Segoe UI', sans-serif;
+  user-select: text;
 }
 
 .resume-container {

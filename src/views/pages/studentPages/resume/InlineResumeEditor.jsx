@@ -1,8 +1,15 @@
 import { useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
+import TextSelectionHandler from "../../../components/ui/student/TextSelectionHandler.jsx";
+import AIInsightsModal from "../../../components/ui/student/AIInsightsModal.jsx";
+import { getAIInsights } from "../../../../Services/aiInsights.js";
 import "./styles/InlineResumeEditor.css";
 
 function InlineResumeEditor() {
+  const [aiModalOpen, setAiModalOpen] = useState(false);
+  const [aiInsights, setAiInsights] = useState(null);
+  const [currentSelection, setCurrentSelection] = useState({ text: '', element: null });
+
   const [resume, setResume] = useState({
     name: "Afaq Ahmad",
     title: "AI/ML Engineer",
@@ -58,6 +65,50 @@ function InlineResumeEditor() {
     html2pdf().set(opt).from(element).save();
   };
 
+  const handleAIInsight = async (selectedText, userPrompt) => {
+    try {
+      const response = await getAIInsights(selectedText, userPrompt);
+      setCurrentSelection({ text: selectedText, element: window.getSelection().anchorNode });
+      setAiInsights({
+        originalText: selectedText,
+        suggestions: response.suggestions || [
+          {
+            text: "Enhanced version with better professional language",
+            reason: "Improved clarity and impact for ATS systems"
+          },
+          {
+            text: "Concise alternative focusing on key achievements",
+            reason: "Better readability and hiring manager appeal"
+          }
+        ]
+      });
+      setAiModalOpen(true);
+    } catch (error) {
+      console.error('Failed to get AI insights:', error);
+      // Fallback with mock suggestions
+      setAiInsights({
+        originalText: selectedText,
+        suggestions: [
+          {
+            text: "Professional enhancement of the selected text",
+            reason: "AI service unavailable - showing sample suggestion"
+          }
+        ]
+      });
+      setAiModalOpen(true);
+    }
+  };
+
+  const handleApplySuggestion = (suggestion) => {
+    // Find the selected text and replace it with the suggestion
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(document.createTextNode(suggestion));
+    }
+    setAiModalOpen(false);
+  };
 
   const updateSectionItem = (section, index, field, value) => {
     const updated = [...resume[section]];
@@ -103,6 +154,13 @@ function InlineResumeEditor() {
 
   return (
     <div className="resume-editor">
+      <TextSelectionHandler onAIInsight={handleAIInsight} />
+      <AIInsightsModal 
+        isOpen={aiModalOpen}
+        onClose={() => setAiModalOpen(false)}
+        insights={aiInsights}
+        onApplySuggestion={handleApplySuggestion}
+      />
       <button className="export-btn" onClick={exportToPDF}>
         📄 Export as PDF
       </button>
