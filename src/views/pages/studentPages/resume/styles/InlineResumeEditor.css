@@ -34,6 +34,15 @@ span[contenteditable],
   user-select: text;
 }
 
+/* ========== Global Text Selection ========== */
+* {
+  user-select: text !important;
+}
+
+.resume-container * {
+  user-select: text !important;
+}
+
 .resume-container {
   width: 750px;
   background: #ffffff;

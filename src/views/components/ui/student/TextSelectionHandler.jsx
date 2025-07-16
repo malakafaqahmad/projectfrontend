@@ -11,22 +11,24 @@ const TextSelectionHandler = ({ onAIInsight }) => {
 
   useEffect(() => {
     const handleTextSelection = () => {
-      const selection = window.getSelection();
-      const text = selection.toString().trim();
-      
-      if (text.length > 0) {
-        const range = selection.getRangeAt(0);
-        const rect = range.getBoundingClientRect();
+      setTimeout(() => {
+        const selection = window.getSelection();
+        const text = selection.toString().trim();
         
-        setSelectedText(text);
-        setPopupPosition({
-          x: rect.left + rect.width / 2,
-          y: rect.top - 10
-        });
-        setShowPopup(true);
-      } else {
-        setShowPopup(false);
-      }
+        if (text.length > 0 && selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          const rect = range.getBoundingClientRect();
+          
+          setSelectedText(text);
+          setPopupPosition({
+            x: rect.left + rect.width / 2,
+            y: rect.top - 10
+          });
+          setShowPopup(true);
+        } else {
+          setShowPopup(false);
+        }
+      }, 10);
     };
 
     const handleClickOutside = (event) => {
