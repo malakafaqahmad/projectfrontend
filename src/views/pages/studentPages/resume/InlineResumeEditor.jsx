@@ -2,6 +2,11 @@ import { useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
 import TextSelectionHandler from "../../../components/ui/student/TextSelectionHandler.jsx";
 import AIInsightsModal from "../../../components/ui/student/AIInsightsModal.jsx";
+import ResumeHeader from "../../../components/ui/student/ResumeHeader.jsx";
+import EducationSection from "../../../components/ui/student/EducationSection.jsx";
+import ExperienceSection from "../../../components/ui/student/ExperienceSection.jsx";
+import ProjectsSection from "../../../components/ui/student/ProjectsSection.jsx";
+import SkillsSection from "../../../components/ui/student/SkillsSection.jsx";
 import { getAIInsights } from "../../../../Services/aiInsights.js";
 import "./styles/InlineResumeEditor.css";
 
@@ -48,21 +53,110 @@ function InlineResumeEditor() {
 
   const resumeRef = useRef();
 
+  const updateField = (field, value) => {
+    setResume(prev => ({ ...prev, [field]: value }));
+  };
+
+  const updateEducation = (index, field, value) => {
+    setResume(prev => ({
+      ...prev,
+      education: prev.education.map((edu, i) =>
+        i === index ? { ...edu, [field]: value } : edu
+      )
+    }));
+  };
+
+  const updateExperience = (index, field, value) => {
+    setResume(prev => ({
+      ...prev,
+      experience: prev.experience.map((exp, i) =>
+        i === index ? { ...exp, [field]: value } : exp
+      )
+    }));
+  };
+
+  const updateProject = (index, field, value) => {
+    setResume(prev => ({
+      ...prev,
+      projects: prev.projects.map((proj, i) =>
+        i === index ? { ...proj, [field]: value } : proj
+      )
+    }));
+  };
+
+  const updateSkill = (index, value) => {
+    setResume(prev => ({
+      ...prev,
+      skills: prev.skills.map((skill, i) => i === index ? value : skill)
+    }));
+  };
+
+  const addEducation = () => {
+    setResume(prev => ({
+      ...prev,
+      education: [...prev.education, { degree: "New Degree", institution: "Institution", duration: "Year - Year" }]
+    }));
+  };
+
+  const addExperience = () => {
+    setResume(prev => ({
+      ...prev,
+      experience: [...prev.experience, { role: "New Role", company: "Company", years: "Year", description: "Description" }]
+    }));
+  };
+
+  const addProject = () => {
+    setResume(prev => ({
+      ...prev,
+      projects: [...prev.projects, { title: "New Project", description: "Project description" }]
+    }));
+  };
+
+  const addSkill = (skill) => {
+    setResume(prev => ({
+      ...prev,
+      skills: [...prev.skills, skill]
+    }));
+  };
+
+  const deleteEducation = (index) => {
+    setResume(prev => ({
+      ...prev,
+      education: prev.education.filter((_, i) => i !== index)
+    }));
+  };
+
+  const deleteExperience = (index) => {
+    setResume(prev => ({
+      ...prev,
+      experience: prev.experience.filter((_, i) => i !== index)
+    }));
+  };
+
+  const deleteProject = (index) => {
+    setResume(prev => ({
+      ...prev,
+      projects: prev.projects.filter((_, i) => i !== index)
+    }));
+  };
+
+  const deleteSkill = (index) => {
+    setResume(prev => ({
+      ...prev,
+      skills: prev.skills.filter((_, i) => i !== index)
+    }));
+  };
+
   const exportToPDF = () => {
     const element = resumeRef.current;
-    const opt = {
-      margin: [0.4, 0.4, 0.4, 0.4], // top, left, bottom, right
-      filename: `${resume.name.replaceAll(" ", "_")}_Resume.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        scrollY: 0,
-        useCORS: true
-      },
-      jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+    const options = {
+      margin: 0.5,
+      filename: `${resume.name.replace(/\s+/g, '_')}_Resume.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
-
-    html2pdf().set(opt).from(element).save();
+    html2pdf().from(element).set(options).save();
   };
 
   const handleAIInsight = async (selectedText, userPrompt) => {
@@ -85,7 +179,6 @@ function InlineResumeEditor() {
       setAiModalOpen(true);
     } catch (error) {
       console.error('Failed to get AI insights:', error);
-      // Fallback with mock suggestions
       setAiInsights({
         originalText: selectedText,
         suggestions: [
@@ -100,7 +193,6 @@ function InlineResumeEditor() {
   };
 
   const handleApplySuggestion = (suggestion) => {
-    // Find the selected text and replace it with the suggestion
     const selection = window.getSelection();
     if (selection.rangeCount > 0) {
       const range = selection.getRangeAt(0);
@@ -108,48 +200,6 @@ function InlineResumeEditor() {
       range.insertNode(document.createTextNode(suggestion));
     }
     setAiModalOpen(false);
-  };
-
-  const updateSectionItem = (section, index, field, value) => {
-    const updated = [...resume[section]];
-    updated[index][field] = value;
-    setResume({ ...resume, [section]: updated });
-  };
-
-  const addSectionItem = (section, newItem) => {
-    setResume({ ...resume, [section]: [...resume[section], newItem] });
-  };
-
-  const deleteSectionItem = (section, index) => {
-    const updated = [...resume[section]];
-    updated.splice(index, 1);
-    setResume({ ...resume, [section]: updated });
-  };
-
-  const updateField = (key, value) => {
-    setResume({ ...resume, [key]: value });
-  };
-
-  const updateSkill = (index, value) => {
-    const updated = [...resume.skills];
-    updated[index] = value;
-    setResume({ ...resume, skills: updated });
-  };
-
-  const addSkill = (e) => {
-    if (e.key === "Enter") {
-      const skill = e.target.value.trim();
-      if (skill) {
-        setResume({ ...resume, skills: [...resume.skills, skill] });
-        e.target.value = "";
-      }
-    }
-  };
-
-  const deleteSkill = (index) => {
-    const updated = [...resume.skills];
-    updated.splice(index, 1);
-    setResume({ ...resume, skills: updated });
   };
 
   return (
@@ -166,244 +216,34 @@ function InlineResumeEditor() {
       </button>
 
       <div className="resume-container" ref={resumeRef}>
-        <div className="resume-header">
-          <h1
-            contentEditable
-            suppressContentEditableWarning
-            onBlur={(e) => updateField("name", e.target.innerText)}
-          >
-            {resume.name}
-          </h1>
-          <h2
-            contentEditable
-            suppressContentEditableWarning
-            onBlur={(e) => updateField("title", e.target.innerText)}
-          >
-            {resume.title}
-          </h2>
+        <ResumeHeader resume={resume} updateField={updateField} />
 
-          <div className="contact-row">
-            <p
-              className="contact-item"
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updateField("phone", e.target.innerText)}
-            >
-              📞 {resume.phone}
-            </p>
-            <p
-              className="contact-item"
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updateField("email", e.target.innerText)}
-            >
-              📧 {resume.email}
-            </p>
-            <p
-              className="contact-item"
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updateField("location", e.target.innerText)}
-            >
-              📍 {resume.location}
-            </p>
-          </div>
-        </div>
+        <EducationSection 
+          education={resume.education}
+          updateEducation={updateEducation}
+          addEducation={addEducation}
+          deleteEducation={deleteEducation}
+        />
 
-        <hr />
+        <ExperienceSection 
+          experience={resume.experience}
+          updateExperience={updateExperience}
+          addExperience={addExperience}
+          deleteExperience={deleteExperience}
+        />
 
-        <div className="section-header">
-          <h3>Education</h3>
-          <button
-            className="add-btn"
-            onClick={() =>
-              addSectionItem("education", {
-                institution: "Institution, Location",
-                degree: "Degree",
-                duration: "YYYY - YYYY",
-              })
-            }
-          >
-            ➕
-          </button>
-        </div>
-        {resume.education.map((edu, index) => (
-          <div className="edu-block" key={index}>
-            <div className="edu-left">
-              <p
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) =>
-                  updateSectionItem("education", index, "institution", e.target.innerText)
-                }
-              >
-                {edu.institution}
-              </p>
-              <p
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) =>
-                  updateSectionItem("education", index, "degree", e.target.innerText)
-                }
-              >
-                {edu.degree}
-              </p>
-            </div>
-            <div className="edu-right-container">
-              <div
-                className="edu-right"
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) =>
-                  updateSectionItem("education", index, "duration", e.target.innerText)
-                }
-              >
-                {edu.duration}
-              </div>
-              <button 
-                className="delete-btn-small"
-                onClick={() => deleteSectionItem("education", index)}
-              >
-                ×
-              </button>
-            </div>
-          </div>
-        ))}
+        <ProjectsSection 
+          projects={resume.projects}
+          updateProject={updateProject}
+          addProject={addProject}
+          deleteProject={deleteProject}
+        />
 
-        <div className="section-header">
-          <h3>Experience</h3>
-          <button
-            className="add-btn"
-            onClick={() =>
-              addSectionItem("experience", {
-                role: "Role",
-                company: "Company",
-                years: "Years",
-                description: "Your responsibilities...",
-              })
-            }
-          >
-            ➕
-          </button>
-        </div>
-        {resume.experience.map((exp, index) => (
-          <div className="exp-row" key={index}>
-            <div className="exp-header">
-              <div className="exp-info">
-                <span
-                  contentEditable
-                  suppressContentEditableWarning
-                  onBlur={(e) => updateSectionItem("experience", index, "role", e.target.innerText)}
-                >
-                  {exp.role}
-                </span>
-                <span className="divider">|</span>
-                <span
-                  contentEditable
-                  suppressContentEditableWarning
-                  onBlur={(e) => updateSectionItem("experience", index, "company", e.target.innerText)}
-                >
-                  {exp.company}
-                </span>
-                <span className="divider">|</span>
-                <span
-                  contentEditable
-                  suppressContentEditableWarning
-                  onBlur={(e) => updateSectionItem("experience", index, "years", e.target.innerText)}
-                >
-                  {exp.years}
-                </span>
-              </div>
-              <button 
-                className="delete-btn-small"
-                onClick={() => deleteSectionItem("experience", index)}
-              >
-                ×
-              </button>
-            </div>
-            <p
-              className="exp-desc"
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) =>
-                updateSectionItem("experience", index, "description", e.target.innerText)
-              }
-            >
-              {exp.description}
-            </p>
-          </div>
-        ))}
-
-        <div className="section-header">
-          <h3>Projects</h3>
-          <button
-            className="add-btn"
-            onClick={() =>
-              addSectionItem("projects", {
-                title: "Project Title",
-                description: "Project description...",
-              })
-            }
-          >
-            ➕
-          </button>
-        </div>
-        {resume.projects.map((proj, index) => (
-          <div key={index} className="project-block">
-            <div className="project-header">
-              <p
-                className="project-title"
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) => updateSectionItem("projects", index, "title", e.target.innerText)}
-              >
-                {proj.title}
-              </p>
-              <button 
-                className="delete-btn-small"
-                onClick={() => deleteSectionItem("projects", index)}
-              >
-                ×
-              </button>
-            </div>
-            <p
-              className="project-desc"
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) => updateSectionItem("projects", index, "description", e.target.innerText)}
-            >
-              {proj.description}
-            </p>
-          </div>
-        ))}
-
-        <div className="section-header">
-          <h3>Skills</h3>
-        </div>
-        <div className="skills-wrapper">
-          {resume.skills.map((skill, index) => (
-            <div key={index} className="skill-item">
-              <span
-                contentEditable
-                suppressContentEditableWarning
-                className="skill-tag"
-                onBlur={(e) => updateSkill(index, e.target.innerText)}
-              >
-                {skill}
-              </span>
-              <button 
-                className="skill-delete-btn"
-                onClick={() => deleteSkill(index)}
-              >
-                ×
-              </button>
-            </div>
-          ))}
-        </div>
-        <input
-          className="skill-input"
-          placeholder="Add skill and hit Enter"
-          onKeyDown={addSkill}
+        <SkillsSection 
+          skills={resume.skills}
+          updateSkill={updateSkill}
+          addSkill={addSkill}
+          deleteSkill={deleteSkill}
         />
       </div>
     </div>
