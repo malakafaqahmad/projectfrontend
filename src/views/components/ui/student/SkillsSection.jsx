@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
 const SkillsSection = ({ skills, updateSkill, addSkill, deleteSkill }) => {
-  const [newSkill, setNewSkill] = useState('');
+  const [newSkill, setNewSkill] = useState("");
+  const [adding, setAdding] = useState(false);
 
   const handleAddSkill = () => {
     if (newSkill.trim()) {
       addSkill(newSkill.trim());
-      setNewSkill('');
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleAddSkill();
+      setNewSkill("");
+      setAdding(false);
     }
   };
 
   return (
     <div>
       <div className="section-header">
-        <h3>🛠️ Skills</h3>
+        <h3>Skills</h3>
+        {!adding && (
+          <button className="add-btn-small" onClick={() => setAdding(true)}>＋</button>
+        )}
       </div>
+
       <div className="skills-wrapper">
         {skills.map((skill, index) => (
           <div key={index} className="skill-item">
@@ -35,17 +35,21 @@ const SkillsSection = ({ skills, updateSkill, addSkill, deleteSkill }) => {
             <button className="skill-delete-btn" onClick={() => deleteSkill(index)}>×</button>
           </div>
         ))}
-      </div>
-      <div style={{ marginTop: '10px' }}>
-        <input
-          className="skill-input"
-          type="text"
-          placeholder="Add a new skill"
-          value={newSkill}
-          onChange={(e) => setNewSkill(e.target.value)}
-          onKeyPress={handleKeyPress}
-        />
-        <button onClick={handleAddSkill}>Add Skill</button>
+
+        {adding && (
+          <div style={{ display: "flex", gap: "8px", alignItems: "center", marginTop: "10px" }}>
+            <input
+              className="skill-input"
+              type="text"
+              value={newSkill}
+              onChange={(e) => setNewSkill(e.target.value)}
+              placeholder="New skill"
+              autoFocus
+              onKeyDown={(e) => e.key === "Enter" && handleAddSkill()}
+            />
+            <button className="add-btn" onClick={handleAddSkill}>Add</button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -219,14 +219,13 @@ function InlineResumeEditor() {
 
         <div className="resume-container" ref={resumeRef}>
         <ResumeHeader resume={resume} updateField={updateField} />
-        <hr />
+
         <EducationSection 
           education={resume.education}
           updateEducation={updateEducation}
           addEducation={addEducation}
           deleteEducation={deleteEducation}
         />
-        <hr />
 
         <ExperienceSection 
           experience={resume.experience}
@@ -234,8 +233,6 @@ function InlineResumeEditor() {
           addExperience={addExperience}
           deleteExperience={deleteExperience}
         />
-         <hr />
-
 
         <ProjectsSection 
           projects={resume.projects}
@@ -243,7 +240,7 @@ function InlineResumeEditor() {
           addProject={addProject}
           deleteProject={deleteProject}
         />
-        <hr />
+
         <SkillsSection 
           skills={resume.skills}
           updateSkill={updateSkill}
