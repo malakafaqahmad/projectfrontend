@@ -9,6 +9,9 @@ span[contenteditable]:focus,
   border-radius: 4px;
 }
 
+
+
+
 /* ========== Remove Outlines for Editable Elements ========== */
 h1[contenteditable],
 h2[contenteditable],
