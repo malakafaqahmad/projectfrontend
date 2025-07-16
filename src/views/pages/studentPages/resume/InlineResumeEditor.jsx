@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
-// import "./styles/InlineResumeEditor.css";
+import "./styles/InlineResumeEditor.css";
 
 function InlineResumeEditor() {
   const [resume, setResume] = useState({
@@ -122,7 +122,7 @@ function InlineResumeEditor() {
             onBlur={(e) => updateField("title", e.target.innerText)}
           >
             {resume.title}
-          </h2>delete-btn-smalldelete-btn-small
+          </h2>
 
           <div className="contact-row">
             <p
@@ -202,7 +202,7 @@ function InlineResumeEditor() {
               >
                 {edu.duration}
               </div>
-              <button delete-btn-small
+              <button 
                 className="delete-btn-small"
                 onClick={() => deleteSectionItem("education", index)}
               >
