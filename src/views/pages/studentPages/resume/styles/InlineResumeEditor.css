@@ -55,7 +55,7 @@ span[contenteditable],
 /* ========== Header ========== */
 .resume-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .resume-header h1 {
@@ -122,8 +122,8 @@ span[contenteditable],
 
 /* ========== Experience ========== */
 .exp-row {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
 }
 
 .exp-header {
@@ -157,8 +157,8 @@ span[contenteditable],
 
 /* ========== Projects ========== */
 .project-block {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
 }
 
 .project-header {
@@ -236,7 +236,7 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .section-header h3 {
