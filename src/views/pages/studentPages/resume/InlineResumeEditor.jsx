@@ -191,22 +191,24 @@ function InlineResumeEditor() {
                 {edu.degree}
               </p>
             </div>
-            <div
-              className="edu-right"
-              contentEditable
-              suppressContentEditableWarning
-              onBlur={(e) =>
-                updateSectionItem("education", index, "duration", e.target.innerText)
-              }
-            >
-              {edu.duration}
+            <div className="edu-right-container">
+              <div
+                className="edu-right"
+                contentEditable
+                suppressContentEditableWarning
+                onBlur={(e) =>
+                  updateSectionItem("education", index, "duration", e.target.innerText)
+                }
+              >
+                {edu.duration}
+              </div>
+              <button 
+                className="delete-btn-small"
+                onClick={() => deleteSectionItem("education", index)}
+              >
+                ×
+              </button>
             </div>
-            <button 
-              className="delete-btn-small"
-              onClick={() => deleteSectionItem("education", index)}
-            >
-              ×
-            </button>
           </div>
         ))}
 

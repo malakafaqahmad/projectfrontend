@@ -89,11 +89,18 @@ span[contenteditable],
   color: #222;
 }
 
+.edu-right-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 140px;
+}
+
 .edu-right {
   font-size: 0.95rem;
   color: #555;
   text-align: right;
-  min-width: 140px;
+  flex: 1;
 }
 
 /* ========== Projects ========== */
