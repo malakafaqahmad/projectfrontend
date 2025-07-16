@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import "./styles/TemplateSelection.css";
+import "../styles/TemplateSelection.css";
 
 function TemplateSelection() {
   const navigate = useNavigate();

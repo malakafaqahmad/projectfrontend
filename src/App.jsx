@@ -2,9 +2,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './views/pages/authPages/Login.jsx';
 import Signup from './views/pages/authPages/Signup.jsx';
 import PreSignup from './views/pages/authPages/PreSignup.jsx';
-import WelcomeScreen from './views/pages/studentPages/resume/WelcomeScreen.jsx';
-import TemplateSelection from './views/pages/studentPages/resume/TemplateSelection.jsx';
-import InlineResumeEditor from './views/pages/studentPages/resume/InlineResumeEditor.jsx';
+import WelcomeScreen from './views/pages/studentPages/resume/codes/WelcomeScreen.jsx';
+import TemplateSelection from './views/pages/studentPages/resume/codes/TemplateSelection.jsx';
+import InlineResumeEditor from './views/pages/studentPages/resume/codes/InlineResumeEditor.jsx';
 
 function App() {
   return (

@@ -1,14 +1,14 @@
 import { useState, useRef } from "react";
 import html2pdf from "html2pdf.js";
-import TextSelectionHandler from "../../../components/ui/student/TextSelectionHandler.jsx";
-import AIInsightsModal from "../../../components/ui/student/AIInsightsModal.jsx";
-import ResumeHeader from "../../../components/ui/student/ResumeHeader.jsx";
-import EducationSection from "../../../components/ui/student/EducationSection.jsx";
-import ExperienceSection from "../../../components/ui/student/ExperienceSection.jsx";
-import ProjectsSection from "../../../components/ui/student/ProjectsSection.jsx";
-import SkillsSection from "../../../components/ui/student/SkillsSection.jsx";
-import { getAIInsights } from "../../../../Services/aiInsights.js";
-import "./styles/InlineResumeEditor.css";
+import TextSelectionHandler from "../../../../components/ui/student/TextSelectionHandler.jsx";
+import AIInsightsModal from "../../../../components/ui/student/AIInsightsModal.jsx";
+import ResumeHeader from "../../../../components/ui/student/ResumeHeader.jsx";
+import EducationSection from "../../../../components/ui/student/EducationSection.jsx";
+import ExperienceSection from "../../../../components/ui/student/ExperienceSection.jsx";
+import ProjectsSection from "../../../../components/ui/student/ProjectsSection.jsx";
+import SkillsSection from "../../../../components/ui/student/SkillsSection.jsx";
+import { getAIInsights } from "../../../../../Services/aiInsights.js";
+import "../styles/InlineResumeEditor.css"
 
 function InlineResumeEditor() {
   const [aiModalOpen, setAiModalOpen] = useState(false);
