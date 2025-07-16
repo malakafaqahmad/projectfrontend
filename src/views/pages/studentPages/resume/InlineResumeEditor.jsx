@@ -231,29 +231,31 @@ function InlineResumeEditor() {
         {resume.experience.map((exp, index) => (
           <div className="exp-row" key={index}>
             <div className="exp-header">
-              <span
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) => updateSectionItem("experience", index, "role", e.target.innerText)}
-              >
-                {exp.role}
-              </span>
-              <span className="divider">|</span>
-              <span
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) => updateSectionItem("experience", index, "company", e.target.innerText)}
-              >
-                {exp.company}
-              </span>
-              <span className="divider">|</span>
-              <span
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={(e) => updateSectionItem("experience", index, "years", e.target.innerText)}
-              >
-                {exp.years}
-              </span>
+              <div className="exp-info">
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updateSectionItem("experience", index, "role", e.target.innerText)}
+                >
+                  {exp.role}
+                </span>
+                <span className="divider">|</span>
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updateSectionItem("experience", index, "company", e.target.innerText)}
+                >
+                  {exp.company}
+                </span>
+                <span className="divider">|</span>
+                <span
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={(e) => updateSectionItem("experience", index, "years", e.target.innerText)}
+                >
+                  {exp.years}
+                </span>
+              </div>
               <button 
                 className="delete-btn-small"
                 onClick={() => deleteSectionItem("experience", index)}

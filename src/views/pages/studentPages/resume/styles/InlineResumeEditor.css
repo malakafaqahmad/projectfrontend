@@ -74,7 +74,22 @@ span[contenteditable]:focus,
 h1[contenteditable],
 h2[contenteditable],
 p[contenteditable],
-span[contenteditable],
+span[contenteditable],.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+.exp-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .skill-tag[contenteditable] {
   outline: none;
 }
