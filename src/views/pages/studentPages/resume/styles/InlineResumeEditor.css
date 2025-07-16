@@ -1,3 +1,13 @@
+h1[contenteditable]:focus,
+h2[contenteditable]:focus,
+p[contenteditable]:focus,
+span[contenteditable]:focus,
+.skill-tag[contenteditable]:focus {
+  background-color: #f0f8ff;
+  border-radius: 4px;
+}
+
+
 /* ========== Container Layout ========== */
 .resume-editor {
   background-color: #f5f7fa;
@@ -47,14 +57,23 @@
 .contact-row p {
   margin: 0;
 }
+/* ========== Remove Outlines for Editable Elements ========== */
+h1[contenteditable],
+h2[contenteditable],
+p[contenteditable],
+span[contenteditable],
+.skill-tag[contenteditable] {
+  outline: none;
+}
 
 /* ========== Education ========== */
 .edu-block {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #e0e0e0;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 0;
+  
 }
 
 .edu-left {
@@ -63,46 +82,25 @@
   color: #222;
 }
 
+.edu-left p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #222;
+}
+
 .edu-right {
   font-size: 0.95rem;
   color: #555;
   text-align: right;
-}
-
-/* ========== Experience ========== */
-.exp-row {
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #eee;
-}
-
-.exp-header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: #333;
-}
-
-.exp-desc {
-  margin-top: 5px;
-  font-size: 0.95rem;
-  color: #444;
-  line-height: 1.5;
-  padding-left: 4px;
-  outline: none;
-}
-
-.divider {
-  color: #888;
+  min-width: 140px;
 }
 
 /* ========== Projects ========== */
 .project-block {
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+
 }
 
 .project-title {
@@ -118,6 +116,7 @@
   line-height: 1.5;
   outline: none;
 }
+
 
 /* ========== Skills ========== */
 .skills-wrapper {
@@ -161,25 +160,67 @@ button:hover {
   background-color: #126fc1;
 }
 
-.edu-block {
+.section-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  align-items: center;
+  margin-top: 30px;
 }
 
-.edu-left p {
+.section-header h3 {
   margin: 0;
-  font-weight: 500;
-  font-size: 1rem;
-  color: #222;
 }
 
-.edu-right {
+.add-btn {
+  background-color: #1e90ff;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  height: 30px;
+}
+
+.add-btn:hover {
+  background-color: #126fc1;
+}
+
+.export-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+  align-self: flex-end;
+}
+
+.export-btn:hover {
+  background-color: #388e3c;
+}
+.exp-row {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  /* 🚫 Removed border-bottom */
+}
+
+.exp-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+.exp-desc {
+  margin-top: 5px;
   font-size: 0.95rem;
-  color: #555;
-  text-align: right;
-  min-width: 140px;
+  color: #444;
+  line-height: 1.5;
+  outline: none;
+  padding-left: 4px;
 }

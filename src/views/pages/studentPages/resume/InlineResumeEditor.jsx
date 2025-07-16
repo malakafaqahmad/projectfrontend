@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import html2pdf from "html2pdf.js";
 import "./styles/InlineResumeEditor.css";
 
 function InlineResumeEditor() {
@@ -38,6 +39,26 @@ function InlineResumeEditor() {
     skills: ["Python", "C++", "TensorFlow", "YOLO", "PostgreSQL"],
   });
 
+  const resumeRef = useRef();
+
+  const exportToPDF = () => {
+    const element = resumeRef.current;
+    const opt = {
+      margin: [0.4, 0.4, 0.4, 0.4], // top, left, bottom, right
+      filename: `${resume.name.replaceAll(" ", "_")}_Resume.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: {
+        scale: 2,
+        scrollY: 0,
+        useCORS: true
+      },
+      jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+    };
+
+    html2pdf().set(opt).from(element).save();
+  };
+
+
   const updateSectionItem = (section, index, field, value) => {
     const updated = [...resume[section]];
     updated[index][field] = value;
@@ -70,7 +91,11 @@ function InlineResumeEditor() {
 
   return (
     <div className="resume-editor">
-      <div className="resume-container">
+      <button className="export-btn" onClick={exportToPDF}>
+        📄 Export as PDF
+      </button>
+
+      <div className="resume-container" ref={resumeRef}>
         <div className="resume-header">
           <h1
             contentEditable
@@ -89,6 +114,7 @@ function InlineResumeEditor() {
 
           <div className="contact-row">
             <p
+              className="contact-item"
               contentEditable
               suppressContentEditableWarning
               onBlur={(e) => updateField("phone", e.target.innerText)}
@@ -96,6 +122,7 @@ function InlineResumeEditor() {
               📞 {resume.phone}
             </p>
             <p
+              className="contact-item"
               contentEditable
               suppressContentEditableWarning
               onBlur={(e) => updateField("email", e.target.innerText)}
@@ -103,6 +130,7 @@ function InlineResumeEditor() {
               📧 {resume.email}
             </p>
             <p
+              className="contact-item"
               contentEditable
               suppressContentEditableWarning
               onBlur={(e) => updateField("location", e.target.innerText)}
@@ -114,7 +142,21 @@ function InlineResumeEditor() {
 
         <hr />
 
-        <h3>Education</h3>
+        <div className="section-header">
+          <h3>Education</h3>
+          <button
+            className="add-btn"
+            onClick={() =>
+              addSectionItem("education", {
+                institution: "Institution, Location",
+                degree: "Degree",
+                duration: "YYYY - YYYY",
+              })
+            }
+          >
+            ➕
+          </button>
+        </div>
         {resume.education.map((edu, index) => (
           <div className="edu-block" key={index}>
             <div className="edu-left">
@@ -149,20 +191,23 @@ function InlineResumeEditor() {
             </div>
           </div>
         ))}
-        <button
-          onClick={() =>
-            addSectionItem("education", {
-              institution: "Institution, Location",
-              degree: "Degree",
-              duration: "YYYY - YYYY",
-            })
-          }
-        >
-          ➕ Add Education
-        </button>
 
-
-        <h3>Experience</h3>
+        <div className="section-header">
+          <h3>Experience</h3>
+          <button
+            className="add-btn"
+            onClick={() =>
+              addSectionItem("experience", {
+                role: "Role",
+                company: "Company",
+                years: "Years",
+                description: "Your responsibilities...",
+              })
+            }
+          >
+            ➕
+          </button>
+        </div>
         {resume.experience.map((exp, index) => (
           <div className="exp-row" key={index}>
             <div className="exp-header">
@@ -202,20 +247,21 @@ function InlineResumeEditor() {
             </p>
           </div>
         ))}
-        <button
-          onClick={() =>
-            addSectionItem("experience", {
-              role: "Role",
-              company: "Company",
-              years: "Years",
-              description: "Your responsibilities...",
-            })
-          }
-        >
-          ➕ Add Experience
-        </button>
 
-        <h3>Projects</h3>
+        <div className="section-header">
+          <h3>Projects</h3>
+          <button
+            className="add-btn"
+            onClick={() =>
+              addSectionItem("projects", {
+                title: "Project Title",
+                description: "Project description...",
+              })
+            }
+          >
+            ➕
+          </button>
+        </div>
         {resume.projects.map((proj, index) => (
           <div key={index} className="project-block">
             <p
@@ -236,18 +282,10 @@ function InlineResumeEditor() {
             </p>
           </div>
         ))}
-        <button
-          onClick={() =>
-            addSectionItem("projects", {
-              title: "Project Title",
-              description: "Project description...",
-            })
-          }
-        >
-          ➕ Add Project
-        </button>
 
-        <h3>Skills</h3>
+        <div className="section-header">
+          <h3>Skills</h3>
+        </div>
         <div className="skills-wrapper">
           {resume.skills.map((skill, index) => (
             <span
